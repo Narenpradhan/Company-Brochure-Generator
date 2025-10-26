@@ -2,7 +2,7 @@ import getpass
 import os
 from dotenv import load_dotenv
 from openai import OpenAI, base_url
-from src.brochure_generator import BrochureGenerator
+from brochure_generator import BrochureGenerator
 
 load_dotenv(override=True)
 
@@ -25,6 +25,10 @@ def main():
         
         brochure_generator = BrochureGenerator(llm_api_key, llm_provider_base_url, llm_model)
         brochure_content = brochure_generator.create_brochure(company_name, company_url)
+
+        print(f"\nWriting brochure content to file {company_name}_brochure.md...")
+        with open(f"{company_name}_brochure.md", "w", encoding="utf-8") as f:
+            f.write(brochure_content)
 
 
 if __name__ == "__main__":

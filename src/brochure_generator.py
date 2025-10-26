@@ -3,7 +3,7 @@ import json
 from dotenv import load_dotenv
 from IPython.display import Markdown, display, update_display
 from openai import OpenAI
-from src.scraper import fetch_website_contents, fetch_website_links
+from scraper import fetch_website_contents, fetch_website_links
 
 load_dotenv(override=True)
 
@@ -98,22 +98,26 @@ class BrochureGenerator:
 
     # Function to create brochure using LLM
     def create_brochure(self, company_name, url):
-        stream = self.client.chat.completions.create(
+        response = self.client.chat.completions.create(
             model=self.llm_model,
             messages=[
                 {"role": "system", "content": self.brochure_system_prompt},
                 {"role": "user", "content": self.craft_brochure_prompt(company_name, url)}
             ],
-            stream=True
+            # stream=True # uncomment this line to stream the brochure content
         )
 
-        print("\n----------Generating Brochure Content----------\n")
-        brochure_content = ""
-        # display_handle = display(Markdown(""), display_id=True)   only works in Jupyter Notebook
-        for chunk in stream:
-            brochure_content += chunk.choices[0].delta.content or ""
-            # update_display(Markdown(brochure_content), display_id=display_handle.display_id)  only works in Jupyter Notebook
-            print(chunk.choices[0].delta.content or "", end="", flush=True)
+        print("\nGenerating Brochure Content ....)
+        brochure_content = response.choices[0].message.content
+        return brochure_content
+
+        # uncomment this line to stream the brochure content
+        # brochure_content = ""
+        # display_handle = display(Markdown(""), display_id=True)   only works in Jupyter Notebook     
+        # for chunk in response:
+        #     brochure_content += chunk.choices[0].delta.content or ""
+        #     # update_display(Markdown(brochure_content), display_id=display_handle.display_id)  only works in Jupyter Notebook
+        #     print(chunk.choices[0].delta.content or "", end="", flush=True)
     
     
 
