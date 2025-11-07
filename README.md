@@ -1,7 +1,7 @@
-# Company Brochure Generator
+# BrochureAI - Company Brochure Generator
 
 ## Overview
-Company Brochure Generator is a Python application that leverages Large Language Models (LLMs) to automatically generate engaging, informative brochures for companies based on their website content. It scrapes the landing page and relevant subpages, then uses an LLM (such as OpenAI's GPT models) to craft a professional marketing brochure in Markdown format.
+BrochureAI is a Python application that leverages Large Language Models (LLMs) to automatically generate engaging, informative brochures for companies based on their website content. It scrapes the landing page and relevant subpages, then uses an LLM (such as OpenAI's GPT models) to craft a professional marketing brochure in Markdown format.
 
 ## Features
 - **Automated Web Scraping:** Extracts content and links from company websites using BeautifulSoup and requests.
